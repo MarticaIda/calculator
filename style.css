@@ -41,12 +41,12 @@
 }
 
 #dummy {
-  grid-column: span 3;
+  grid-column: span 2;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
+  font-size: 15px;
   font-weight: bold;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: lightcoral;
