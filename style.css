@@ -1,0 +1,77 @@
+#body {
+  max-width: 450px;
+  height: 550px;
+  margin: auto;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  border: 2px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 10px;
+  background-color: bisque;
+}
+
+#display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px;
+  border-style: solid;
+  border-radius: 10px;
+  width: 400px;
+  height: 100px;
+  margin: 30px auto 0 auto;
+  font-size: 60px;
+  color:#36454F;
+  background-color: azure;
+}
+
+#keyboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 350px;
+  height: 350px;
+  margin: auto;
+  margin-top: 10px;
+  column-gap: 10px;
+  row-gap: 10px;
+  justify-content: space-evenly;
+}
+
+#dummy {
+  grid-column: span 3;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: lightcoral;
+}
+
+.keys,
+.operators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1rem;
+  min-height: 1rem;
+  border: 0.5px;
+  border-style: solid;
+  border-radius: 5px;
+  place-self: center;
+  text-align: center;
+  padding: 25px;
+  font-size: 20px;
+}
+
+.keys {
+  background-color: lightblue;
+}
+
+.operators {
+  background-color: lightcoral;
+}
