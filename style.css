@@ -23,7 +23,7 @@
   height: 100px;
   margin: 30px auto 0 auto;
   font-size: 60px;
-  color:#36454F;
+  color: #36454F;
   background-color: azure;
 }
 
@@ -53,7 +53,8 @@
 }
 
 .keys,
-.operators {
+.operators,
+.reset {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,17 +62,37 @@
   min-height: 1rem;
   border: 0.5px;
   border-style: solid;
-  border-radius: 5px;
+  border-radius: 10px;
   place-self: center;
   text-align: center;
-  padding: 25px;
-  font-size: 20px;
+  padding: 20px;
+  font-size: 20px; 
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px #999;
 }
 
 .keys {
   background-color: lightblue;
 }
 
-.operators {
+.operators, .reset {
   background-color: lightcoral;
+}
+
+.keys:hover{
+  background-color: lightseagreen;
+}
+
+.operators:hover,
+.reset:hover {
+  background-color: lightseagreen;
+}
+
+.keys:active,
+.operators:active,
+.reset:active {
+  background-color: lightseagreen;
+  box-shadow: 0 2px #666;
+  transform: translateY(3px);
 }
