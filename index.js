@@ -10,10 +10,11 @@ const keySeven = document.getElementById('seven').value = 7;
 const keyEight = document.getElementById('eight').value = 8;
 const keyNine = document.getElementById('nine').value = 9;
 const keyZero = document.getElementById('zero');
-// possibly need to separeat value to add event listener
+// possibly need to separate value to add event listener
 keyZero.value = 0;
 const keyPosNeg = document.getElementById('posneg').value = '-';
-const keyDecimal = document.getElementById('decimal').value = '.';
+const keyDecimal = document.getElementById('decimal');
+keyDecimal.value = '.';
 // operator and clear keys
 const operators = document.querySelectorAll('.operators');
 const keyPlus = document.getElementById('plus').value = '+';
@@ -39,6 +40,12 @@ keys.forEach((key) => {
     if (display.textContent == 0) {
       if (val == 0) {
         display.textContent = 0;
+        console.log(display.textContent);
+      } else if (val == '.') {
+        display.textContent += val;
+      } else if (display.textContent.includes('.') && !val == 0) {
+        display.textContent += val;
+        console.log(display.textContent);
       } else if (!val == 0) {
         display.textContent = '';
         display.textContent += val;
@@ -51,7 +58,15 @@ keys.forEach((key) => {
   });
 });
 
+keyDecimal.addEventListener('click', () => {
+  const val = keyDecimal.value;
+  if (!display.textContent.includes('.')) {
+    display.textContent += val;
+    console.log(display.textContent);
 
+  }
+
+});
 
 //object? with two numbers
 
