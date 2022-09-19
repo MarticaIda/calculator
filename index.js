@@ -51,6 +51,7 @@ digits.forEach((digit) => {
     if (display.textContent == 0) {
       if (val == 0) {
         display.textContent = 0;
+        // pushing each clicked number into array of integers to later extract the last element
         integers.push(display.textContent);
       } else if (val == '.') {
         display.textContent += val;
@@ -64,7 +65,7 @@ digits.forEach((digit) => {
         integers.push(display.textContent);
       }
     } else if (!display.textContent == 0) {
-      if (display.textContent == sign) {
+      if (display.textContent == operator) {
         display.textContent = '';
         display.textContent += val;
         integers.push(display.textContent);
@@ -73,10 +74,12 @@ digits.forEach((digit) => {
       displayValue = display.textContent;
       integers.push(displayValue);
     };
+    // turning the last element of integers array from string into integer
     num = parseFloat(integers[integers.length - 1]);
   });
 });
 
+// pushing the last element of integers array into numbers array which provides num1 and num2 for operations
 function toNumbers(num) {
   numbers.push(num);
 }
@@ -102,12 +105,17 @@ keyPosNeg.addEventListener('click', () => {
 var sign = [];
 operators.forEach((operator) => {
   operator.addEventListener('click', () => {
+    // pushing the first element of integers array into numbers array which provides num1 and num2 for operations. This is num1
     toNumbers(num);
     display.textContent = operator.value;
-    num = '';
+    //preparing clear display for next number, num2
+    // num = '';
     sign.push(operator.value);
   });
 });
+
+// reverse sign? now it reads the variable as negative because "-" is attached to the value, and adds value instead of substracting
+// math.abs(num) could be used but what about real negative?
 
 backspace.addEventListener('click', () => {
   let temp = display.textContent;
@@ -120,13 +128,20 @@ backspace.addEventListener('click', () => {
 });
 
 keyClear.addEventListener('click', () => {
+  numbers = [];
+  integers = [];
+  num = '';
+  operator = '';
   display.textContent = 0;
 });
 
 keyEqual.addEventListener('click', () => {
+  //pushing the last element of integers array into numbers array which provides num1 and num2 for operations. This is num2
   toNumbers(num);
+  //assigning first two elements of numbers array
   num1 = numbers[0];
   num2 = numbers[1];
+  //saving operator sign 
   operator = sign[0];
   operate(num1, operator, num2);
   console.log(result);
@@ -136,6 +151,8 @@ function operate(num1, operator, num2) {
   if (operator == "+") {
     result = num1 + num2;
   } else if (operator == "-") {
+    // reverse operator if number is negative
+   // if ()
     result = num1 - num2;
   } else if (operator == "*") {
     result = num1 * num2;
