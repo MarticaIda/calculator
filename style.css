@@ -1,8 +1,16 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+}
+
 #body {
   max-width: 450px;
   height: 550px;
   margin: auto;
   margin-top: 50px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   border: 2px;
@@ -15,7 +23,7 @@
 #display {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
   border: 2px;
   border-style: solid;
   border-radius: 10px;
@@ -41,7 +49,6 @@
 }
 
 #dummy {
-  grid-column: span 2;
   text-align: center;
   display: flex;
   align-items: center;
@@ -49,12 +56,13 @@
   font-size: 15px;
   font-weight: bold;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: lightcoral;
 }
 
+.digits,
 .keys,
 .operators,
-.reset {
+.reset,
+#backspace {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,33 +74,44 @@
   place-self: center;
   text-align: center;
   padding: 20px;
-  font-size: 20px; 
+  font-size: 20px;
   cursor: pointer;
   outline: none;
   box-shadow: 0 2px #999;
 }
 
+.digits,
 .keys {
   background-color: lightblue;
 }
 
-.operators, .reset {
+.operators,
+.reset,
+#backspace {
   background-color: lightcoral;
 }
 
-.keys:hover{
+.digits:hover,
+.keys:hover {
   background-color: lightseagreen;
 }
 
 .operators:hover,
-.reset:hover {
+.reset:hover,
+#backspace:hover {
   background-color: lightseagreen;
 }
 
+.digits:active,
 .keys:active,
 .operators:active,
-.reset:active {
+.reset:active,
+#backspace:active {
   background-color: lightseagreen;
   box-shadow: 0 2px #666;
   transform: translateY(3px);
+}
+
+#footer {
+  margin-top: 10px;
 }
