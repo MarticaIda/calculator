@@ -33,17 +33,11 @@ display.textContent = 0;
 
 let integers = [];
 var numbers = [];
-var num;
+let num;
 let num1;
 let num2;
 let operator;
 let result;
-
-//!!!!!!!!!! to store the result of a completed operation for later use
-// result = operate(num1, operator, num2);
-// displayValue = result;
-// num1 = result;
-// display.textContent = displayValue;
 
 digits.forEach((digit) => {
   digit.addEventListener('click', () => {
@@ -65,14 +59,14 @@ digits.forEach((digit) => {
         integers.push(display.textContent);
       }
     } else if (!display.textContent == 0) {
-      if (display.textContent == operator) {
+      if (display.textContent == sign[0]) {
         display.textContent = '';
         display.textContent += val;
         integers.push(display.textContent);
-      } else
+      } else {
         display.textContent += val;
-      displayValue = display.textContent;
-      integers.push(displayValue);
+        integers.push(display.textContent);
+      };
     };
     // turning the last element of integers array from string into integer
     num = parseFloat(integers[integers.length - 1]);
@@ -81,8 +75,10 @@ digits.forEach((digit) => {
 
 // pushing the last element of integers array into numbers array which provides num1 and num2 for operations
 function toNumbers(num) {
-  numbers.push(num);
-}
+  if (!num == '') {
+    numbers.push(num);
+  }
+};
 
 keyDecimal.addEventListener('click', () => {
   const val = keyDecimal.value;
@@ -92,25 +88,33 @@ keyDecimal.addEventListener('click', () => {
 });
 
 // do something with 0 and negative? 
+// result needs to be also saved positive-negative
 keyPosNeg.addEventListener('click', () => {
   const val = keyPosNeg.value;
   if (!display.textContent.includes('-')) {
     display.textContent = val + display.textContent;
+    num = -num;
+  } else {
+    let temp = display.textContent;
+    let string = temp.toString();
+    let shortString = string.slice(1);
+    console.log(shortString);
+    display.textContent = shortString;
+    // to use in calculations
+    shortString = parseFloat(shortString, 10);
+    Math.abs(num);
   }
-  // else if (display.textContent.includes('-')) {
-  //  // how to reverse negative number to positive?  
-  //   }
 });
 
 var sign = [];
 operators.forEach((operator) => {
   operator.addEventListener('click', () => {
-    // pushing the first element of integers array into numbers array which provides num1 and num2 for operations. This is num1
+    // pushing the last element of integers array into numbers array which provides num1 and num2 for operations. This is num1
     toNumbers(num);
     display.textContent = operator.value;
-    //preparing clear display for next number, num2
-    // num = '';
     sign.push(operator.value);
+    console.log(numbers, integers, sign, operators);
+
   });
 });
 
@@ -123,6 +127,8 @@ backspace.addEventListener('click', () => {
   let shortString = string.slice(0, -1);
   console.log(shortString);
   display.textContent = shortString;
+  num = shortString;
+  num = parseFloat(integers[integers.length - 1]);
   // to use in calculations
   shortString = parseFloat(shortString, 10);
 });
@@ -136,15 +142,14 @@ keyClear.addEventListener('click', () => {
 });
 
 keyEqual.addEventListener('click', () => {
-  //pushing the last element of integers array into numbers array which provides num1 and num2 for operations. This is num2
-  toNumbers(num);
   //assigning first two elements of numbers array
+  num = '';
   num1 = numbers[0];
   num2 = numbers[1];
   //saving operator sign 
   operator = sign[0];
   operate(num1, operator, num2);
-  console.log(result);
+  console.log(numbers, integers, sign, operator);
 });
 
 function operate(num1, operator, num2) {
@@ -152,7 +157,7 @@ function operate(num1, operator, num2) {
     result = num1 + num2;
   } else if (operator == "-") {
     // reverse operator if number is negative
-   // if ()
+    // if ()
     result = num1 - num2;
   } else if (operator == "*") {
     result = num1 * num2;
@@ -160,6 +165,10 @@ function operate(num1, operator, num2) {
     result = num1 / num2;
   };
   display.textContent = result;
+  integers = [];
+  numbers = [];
+  sign = [];
+  numbers[0] = result;
 };
 
 
