@@ -27,12 +27,16 @@ body {
   border: 2px;
   border-style: solid;
   border-radius: 10px;
-  width: 400px;
+  width: 420px;
   height: 100px;
   margin: 30px auto 0 auto;
-  font-size: 60px;
+  font-size: 40px;
   color: #36454F;
   background-color: azure;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 20ch;
 }
 
 #keyboard {
@@ -59,10 +63,12 @@ body {
 }
 
 .digits,
-.keys,
 .operators,
 .reset,
-#backspace {
+#decimal,
+#equal,
+#backspace,
+#posneg {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,33 +87,44 @@ body {
 }
 
 .digits,
-.keys {
+#decimal,
+#posneg {
   background-color: lightblue;
 }
 
 .operators,
 .reset,
+#equal,
 #backspace {
   background-color: lightcoral;
 }
 
 .digits:hover,
-.keys:hover {
+#decimal:hover,
+#posneg:hover {
   background-color: lightseagreen;
 }
 
 .operators:hover,
 .reset:hover,
+#equal:hover,
 #backspace:hover {
-  background-color: lightseagreen;
+  background-color: coral;
 }
 
 .digits:active,
-.keys:active,
+#decimal:active,
+#posneg:active {
+  background-color: lightseagreen;
+  box-shadow: 0 2px #666;
+  transform: translateY(3px);
+}
+
 .operators:active,
 .reset:active,
+#equal.active,
 #backspace:active {
-  background-color: lightseagreen;
+  background-color: coral;
   box-shadow: 0 2px #666;
   transform: translateY(3px);
 }
