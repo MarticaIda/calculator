@@ -26,49 +26,73 @@ const keyClear = document.getElementById('clear');
 const backspace = document.getElementById('backspace');
 const keyEqual = document.getElementById('equal');
 const display = document.getElementById('display');
-let displayValue;
+
 
 //default display
 display.textContent = 0;
 
 let integers = [];
 var numbers = [];
+var sign = [];
 let num;
 let num1;
 let num2;
 let operator;
 let result;
+let displayValue;
+
+function toPlaceValues(displayValue) {
+  display.textContent = displayValue.toLocaleString(undefined, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 16
+  });
+};
 
 digits.forEach((digit) => {
   digit.addEventListener('click', () => {
     const val = digit.value;
-    if (display.textContent == 0) {
-      if (val == 0) {
-        display.textContent = 0;
-        // pushing each clicked number into array of integers to later extract the last element
-        integers.push(display.textContent);
-      } else if (val == '.') {
-        display.textContent += val;
-        integers.push(display.textContent);
-      } else if (display.textContent.includes('.') && !val == 0) {
-        display.textContent += val;
-        integers.push(display.textContent);
-      } else if (!val == 0) {
-        display.textContent = '';
-        display.textContent += val;
-        integers.push(display.textContent);
-      }
-    } else if (!display.textContent == 0) {
-      if (display.textContent == sign[0]) {
-        display.textContent = '';
-        display.textContent += val;
-        integers.push(display.textContent);
-      } else {
-        display.textContent += val;
-        integers.push(display.textContent);
+    temp = parseFloat(display.textContent.replace(/,/g, ''));
+    if (temp == result) {
+      numbers = [];
+      integers = [];
+      sign = [];
+      display.textContent = '';
+      display.textContent += val;
+      integers.push(display.textContent);
+      console.log(display.textContent);
+    } else if (display.textContent.length <= 18) {
+      if (display.textContent == 0) {
+        if (val == 0) {
+          display.textContent = 0;
+          // pushing each clicked number into array of integers to later extract the last element
+          integers.push(display.textContent);
+        } else if (val == '.') {
+          display.textContent += val;
+          integers.push(display.textContent);
+        } else if (display.textContent.includes('.') && !val == 0) {
+          display.textContent += val;
+          integers.push(display.textContent);
+        } else if (!val == 0) {
+          display.textContent = '';
+          display.textContent += val;
+          integers.push(display.textContent);
+        }
+      } else if (!display.textContent == 0) {
+        if (display.textContent == sign[0]) {
+          display.textContent = '';
+          display.textContent += val;
+          integers.push(display.textContent);
+        } else {
+          display.textContent += val;
+          display.textContent.toLocaleString(undefined, {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 16
+          });
+          integers.push(display.textContent);
+        };
       };
     };
-    // turning the last element of integers array from string into integer
+    // turning the last element of integers array from string into integer  
     num = parseFloat(integers[integers.length - 1]);
   });
 });
@@ -82,55 +106,106 @@ function toNumbers(num) {
 
 keyDecimal.addEventListener('click', () => {
   const val = keyDecimal.value;
-  if (!display.textContent.includes('.')) {
+  temp = parseFloat(display.textContent.replace(/,/g, ''));
+  if (temp == result) {
+    return;
+  } else if (!display.textContent.includes('.')) {
     display.textContent += val;
   };
 });
 
 // do something with 0 and negative? 
 // result needs to be also saved positive-negative
+
 keyPosNeg.addEventListener('click', () => {
-  const val = keyPosNeg.value;
-  if (!display.textContent.includes('-')) {
-    display.textContent = val + display.textContent;
-    num = -num;
+  temp = parseFloat(display.textContent.replace(/,/g, ''));
+  if (temp == result) {
+    result = -result;
+    display.textContent = result.toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 16
+    });
+    numbers[0] = result;
   } else {
-    let temp = display.textContent;
-    let string = temp.toString();
-    let shortString = string.slice(1);
-    console.log(shortString);
-    display.textContent = shortString;
-    // to use in calculations
-    shortString = parseFloat(shortString, 10);
-    Math.abs(num);
+    num = -(parseFloat(num));
+    display.textContent = num;;
   }
 });
 
-var sign = [];
 operators.forEach((operator) => {
   operator.addEventListener('click', () => {
-    // pushing the last element of integers array into numbers array which provides num1 and num2 for operations. This is num1
-    toNumbers(num);
-    display.textContent = operator.value;
-    sign.push(operator.value);
-    console.log(numbers, integers, sign, operators);
-
+    temp = parseFloat(display.textContent.replace(/,/g, ''));
+    if (temp == result) {
+      // sign = [];
+      // toNumbers(num);
+      numbers.push(result);
+      display.textContent = operator.value;
+      sign[0] = operator.value;
+      // sign.push(operator.value);
+    } else {
+      // pushing the last element of integers array into numbers array which provides num1 and num2 for operations. This is num1
+      toNumbers(num);
+      display.textContent = operator.value;
+      sign[0] = operator.value;
+      // sign.push(operator.value);
+    }
   });
 });
 
-// reverse sign? now it reads the variable as negative because "-" is attached to the value, and adds value instead of substracting
-// math.abs(num) could be used but what about real negative?
+keyEqual.addEventListener('click', () => {
+  temp = parseFloat(display.textContent.replace(/,/g, ''));
+  if (temp == result) {
+    console.log("yes");
+    // num1 = result;
+    numbers.push(result);
+    toNumbers(num2);
+    num1 = numbers[0];
+    num2 = numbers[1];
+    //saving operator sign 
+    operator = sign[0];
+    operate(num1, operator, num2);
+  } else {
+    // assigning first two elements of numbers array
+    console.log(num1, num2, result);
+    toNumbers(num);
+    num = '';
+    num1 = numbers[0];
+    num2 = numbers[1];
+    //saving operator sign 
+    operator = sign[0];
+    operate(num1, operator, num2);
+  }
+});
+
+function operate(num1, operator, num2) {
+  if (operator == "+") {
+    result = num1 + num2;
+  } else if (operator == "-") {
+    result = num1 - num2;
+  } else if (operator == "*") {
+    result = num1 * num2;
+  } else if (operator == "/") {
+    result = num1 / num2;
+  };
+  numbers[0] = result;
+  displayValue = result;
+  toPlaceValues(displayValue);
+  integers = [];
+  numbers = [];
+  // sign = [];
+  // temp = undefined;
+};
 
 backspace.addEventListener('click', () => {
-  let temp = display.textContent;
-  let string = temp.toString();
-  let shortString = string.slice(0, -1);
-  console.log(shortString);
-  display.textContent = shortString;
-  num = shortString;
-  num = parseFloat(integers[integers.length - 1]);
-  // to use in calculations
-  shortString = parseFloat(shortString, 10);
+  temp = parseFloat(display.textContent.replace(/,/g, ''));
+  if (temp == result) {
+    null;
+  } else {
+    let string = display.textContent.toString();
+    let shortString = string.slice(0, -1);
+    display.textContent = shortString;
+    num = parseFloat(shortString);
+  };
 });
 
 keyClear.addEventListener('click', () => {
@@ -140,37 +215,6 @@ keyClear.addEventListener('click', () => {
   operator = '';
   display.textContent = 0;
 });
-
-keyEqual.addEventListener('click', () => {
-  //assigning first two elements of numbers array
-  num = '';
-  num1 = numbers[0];
-  num2 = numbers[1];
-  //saving operator sign 
-  operator = sign[0];
-  operate(num1, operator, num2);
-  console.log(numbers, integers, sign, operator);
-});
-
-function operate(num1, operator, num2) {
-  if (operator == "+") {
-    result = num1 + num2;
-  } else if (operator == "-") {
-    // reverse operator if number is negative
-    // if ()
-    result = num1 - num2;
-  } else if (operator == "*") {
-    result = num1 * num2;
-  } else if (operator == "/") {
-    result = num1 / num2;
-  };
-  display.textContent = result;
-  integers = [];
-  numbers = [];
-  sign = [];
-  numbers[0] = result;
-};
-
 
 // const sum = function (array) {
 //   return array.reduce(function (total, num) {
