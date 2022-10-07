@@ -41,8 +41,6 @@ let operator;
 let result;
 let displayValue;
 
-
-
 digits.forEach((digit) => {
   digit.addEventListener('click', () => {
     const val = digit.value;
@@ -94,7 +92,7 @@ digits.forEach((digit) => {
 });
 
 //digits keyboard support
-document.addEventListener('keypress', (event) => {
+document.addEventListener('keydown', (event) => {
   if (event.key == '0' || event.key == '1' || event.key == '2' || event.key == '3' || event.key == '4' || event.key == '5' || event.key == '6' || event.key == '7' || event.key == '8' || event.key == '9') {
     const val = event.key;
     temp = parseFloat(display.textContent.replace(/,/g, ''));
@@ -134,14 +132,22 @@ document.addEventListener('keypress', (event) => {
             maximumFractionDigits: 15
           });
           integers.push(display.textContent);
-        }
-      }
-      // turning the last element of integers array from string into integer  
-      num = parseFloat(integers[integers.length - 1]);
-    }
+        };
+      };
+    };
+  } else if (event.key == '.') {
+    const val = event.key;
+    temp = parseFloat(display.textContent.replace(/,/g, ''));
+    if (temp == result) {
+      return;
+    } else if (!display.textContent.includes('.')) {
+      display.textContent += val;
+    };
   } else {
     return;
   };
+  // turning the last element of integers array from string into integer  
+  num = parseFloat(integers[integers.length - 1]);
 });
 
 // pushing the last element of integers array into numbers array which provides num1 and num2 for operations
@@ -159,21 +165,6 @@ keyDecimal.addEventListener('click', () => {
   } else if (!display.textContent.includes('.')) {
     display.textContent += val;
   };
-});
-
-// decimal keyboard support
-document.addEventListener('keypress', (event) => {
-  if (event.key == '.') {
-    const val = event.key;
-    temp = parseFloat(display.textContent.replace(/,/g, ''));
-    if (temp == result) {
-      return;
-    } else if (!display.textContent.includes('.')) {
-      display.textContent += val;
-    };
-  } else {
-    return;
-  }
 });
 
 keyPosNeg.addEventListener('click', () => {
@@ -216,7 +207,7 @@ operators.forEach((operator) => {
   });
 });
 //operator keyboard support
-document.addEventListener('keypress', (event) => {
+document.addEventListener('keydown', (event) => {
   if (event.key == '-' || event.key == '+' || event.key == '*' || event.key == '/') {
     temp = parseFloat(display.textContent.replace(/,/g, ''));
     if (display.textContent == "No can't do") {
@@ -237,6 +228,50 @@ document.addEventListener('keypress', (event) => {
         sign[0] = event.key;
       };
     };
+  } else if (event.key == 'Enter' || event.key == '=') {
+    temp = parseFloat(display.textContent.replace(/,/g, ''));
+    if (numbers[0] == undefined && num1 == undefined) {
+      return;
+    } else if (temp == result) {
+      num1 = result;
+      numbers.push(result);
+      toNumbers(num2);
+      //saving operator sign 
+      operator = sign[0];
+      operate(num1, operator, num2);
+    } else {
+      // assigning first two elements of numbers array
+      toNumbers(num);
+      // num = '';
+      num1 = numbers[0];
+      num2 = numbers[1];
+      //saving operator sign 
+      operator = sign[0];
+      operate(num1, operator, num2);
+    }
+  } else if (event.key === 'Backspace') {
+    temp = parseFloat(display.textContent.replace(/,/g, ''));
+    if (temp == result) {
+      null;
+    } else {
+      // let string = display.textContent.toString();
+      let shortString = display.textContent.slice(0, -1);
+      if (shortString == "-") {
+        display.textContent = '';
+      } else {
+        display.textContent = shortString;
+        num = parseFloat(shortString);
+      };
+    };
+  } else if (event.key === 'Escape') {
+    numbers = [];
+    integers = [];
+    num1 = undefined;
+    num2 = undefined;
+    num = '';
+    operator = '';
+    display.textContent = 0;
+    warningTab.textContent = '';
   } else {
     return;
   };
@@ -263,34 +298,6 @@ keyEqual.addEventListener('click', () => {
     operator = sign[0];
     operate(num1, operator, num2);
   }
-});
-
-//equal keyboard support
-document.addEventListener('keypress', (event) => {
-  if (event.key == 'Enter' || event.key == '=') {
-    temp = parseFloat(display.textContent.replace(/,/g, ''));
-    if (numbers[0] == undefined && num1 == undefined) {
-      return;
-    } else if (temp == result) {
-      num1 = result;
-      numbers.push(result);
-      toNumbers(num2);
-      //saving operator sign 
-      operator = sign[0];
-      operate(num1, operator, num2);
-    } else {
-      // assigning first two elements of numbers array
-      toNumbers(num);
-      // num = '';
-      num1 = numbers[0];
-      num2 = numbers[1];
-      //saving operator sign 
-      operator = sign[0];
-      operate(num1, operator, num2);
-    }
-  } else {
-    return;
-  };
 });
 
 function operate(num1, operator, num2) {
@@ -345,29 +352,6 @@ backspace.addEventListener('click', () => {
   };
 });
 
-// backspace keyboard support DOESN'T WORK YET
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Backspace') {
-    console.log('hello')
-    temp = parseFloat(display.textContent.replace(/,/g, ''));
-    if (temp == result) {
-      null;
-    } else {
-      // let string = display.textContent.toString();
-      let shortString = display.textContent.slice(0, -1);
-      if (shortString == "-") {
-        display.textContent = '';
-      } else {
-        display.textContent = shortString;
-        num = parseFloat(shortString);
-      };
-    };
-  } else {
-    return;
-  }
-});
-
-
 keyClear.addEventListener('click', () => {
   numbers = [];
   integers = [];
@@ -377,22 +361,6 @@ keyClear.addEventListener('click', () => {
   operator = '';
   display.textContent = 0;
   warningTab.textContent = '';
-});
-
-// clear keyboard support DOESN'T WORK YET
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    numbers = [];
-    integers = [];
-    num1 = undefined;
-    num2 = undefined;
-    num = '';
-    operator = '';
-    display.textContent = 0;
-    warningTab.textContent = '';
-  } else {
-    return;
-  }
 });
 
 // const sum = function (array) {
