@@ -26,9 +26,11 @@ const backspace = document.getElementById('backspace');
 const keyEqual = document.getElementById('equal');
 const display = document.getElementById('display');
 const warningTab = document.getElementById('warning');
+const calculations = document.getElementById('calculations');
 
 //default display
 display.textContent = 0;
+calculations.textContent = '';
 warningTab.textContent = '';
 
 let integers = [];
@@ -40,12 +42,12 @@ let num2;
 let operator;
 let result;
 let displayValue;
-
+//temp == result ||
 digits.forEach((digit) => {
   digit.addEventListener('click', () => {
     const val = digit.value;
     temp = parseFloat(display.textContent.replace(/,/g, ''));
-    if (temp == result || display.textContent == "No can't do") {
+    if (display.textContent == "No can't do") {
       numbers = [];
       integers = [];
       sign = [];
@@ -69,17 +71,22 @@ digits.forEach((digit) => {
         integers.push(display.textContent);
       }
     } else if (!display.textContent == 0) {
-      if (display.textContent == sign[0]) {
-        display.textContent = '';
-        display.textContent += val;
-        integers.push(display.textContent);
+      if (calculations.textContent.includes(sign[0])) {
+        if (num == undefined) {
+          display.textContent = '';
+          display.textContent += val;
+          integers.push(display.textContent);
+        } else {
+          display.textContent += val;
+          integers.push(display.textContent);
+        }
       } else {
         if (display.textContent.length <= 15) {
           displayValue = display.textContent += val;
-          displayValue.toLocaleString(undefined, {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 15
-          });
+          // displayValue.toLocaleString(undefined, {
+          //   minimumFractionDigits: 0,
+          //   maximumFractionDigits: 15
+          // });
           integers.push(display.textContent);
         } else {
           return;
@@ -120,17 +127,17 @@ document.addEventListener('keydown', (event) => {
         integers.push(display.textContent);
       }
     } else if (!display.textContent == 0) {
-      if (display.textContent == sign[0]) {
+      if (calculations.textContent.includes(sign[0])) {
         display.textContent = '';
         display.textContent += val;
         integers.push(display.textContent);
       } else {
         if (display.textContent.length <= 15) {
           displayValue = display.textContent += val;
-          displayValue.toLocaleString(undefined, {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 15
-          });
+          // displayValue.toLocaleString(undefined, {
+          //   minimumFractionDigits: 0,
+          //   maximumFractionDigits: 15
+          // });
           integers.push(display.textContent);
         };
       };
@@ -195,13 +202,24 @@ operators.forEach((operator) => {
       temp = parseFloat(display.textContent.replace(/,/g, ''));
       if (temp == result) {
         numbers.push(result);
-        display.textContent = operator.value;
+        calculations.textContent = result + operator.value;
+        sign[0] = operator.value;
+      } else if (typeof numbers[0] == 'number' && typeof numbers[1] == "undefined") {
+        toNumbers(num);
+        num1 = numbers[0];
+        num2 = numbers[1];
+        // sign[0] = operator.value;
+        operator = sign[0];
+        operate(num1, operator, num2);
+        // calculations.textContent = result + operator.value;
+        //numbers[0] = result;
         sign[0] = operator.value;
       } else {
         // pushing the last element of integers array into numbers array which provides num1 and num2 for operations. This is num1
         toNumbers(num);
-        display.textContent = operator.value;
+        calculations.textContent = num + operator.value;
         sign[0] = operator.value;
+        num = undefined;
       };
     };
   });
@@ -297,6 +315,7 @@ keyEqual.addEventListener('click', () => {
     //saving operator sign 
     operator = sign[0];
     operate(num1, operator, num2);
+    num = undefined;
   }
 });
 
@@ -327,10 +346,13 @@ function operate(num1, operator, num2) {
       minimumFractionDigits: 0,
       maximumFractionDigits: 15
     });
+    calculations.textContent = `${num1}+${num2}=`;
+    //  numbers[0] = result;
   } else {
     warningTab.textContent = 'Numbers are too big. Result may not be precise.';
     display.textContent = result;
-    numbers[0] = result;
+    calculations.textContent = `${num1}+${num2}=`;
+    // numbers[0] = result;
   };
   integers = [];
   numbers = [];
@@ -361,6 +383,7 @@ keyClear.addEventListener('click', () => {
   operator = '';
   display.textContent = 0;
   warningTab.textContent = '';
+  calculations.textContent = '';
 });
 
 // const sum = function (array) {
