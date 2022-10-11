@@ -19,17 +19,47 @@ body {
   border-radius: 10px;
   background-color: bisque;
 }
-
-#display {
+#screen{
   display: flex;
-  align-items: center;
-  justify-content: end;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
   border: 2px;
   border-style: solid;
   border-radius: 10px;
   width: 440px;
   height: 100px;
   margin: 30px auto 0 auto;
+  font-size: 40px;
+  color: #36454F;
+  background-color: azure;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 26ch;
+}
+
+#calculations{
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  /* width: 440px; */
+  height: 40px;
+  font-size: 20px;
+  color: #36454F;
+  background-color: azure;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 26ch; 
+}
+
+#display {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  /* width: 440px; */
+  height: 60px;
   font-size: 40px;
   color: #36454F;
   background-color: azure;
