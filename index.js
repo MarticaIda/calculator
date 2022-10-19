@@ -334,7 +334,7 @@ document.addEventListener('keydown', (event) => {
     } else if (numbers[0] == undefined && num1 == undefined) {
       return;
       // for the cases of repeatedly pressed Enter to perform the same action with the result each time
-    } else if (temp == result) {
+    } else if (temp == result && integers.length == 0) {
       num1 = result;
       //saving operator sign 
       operator = sign[0];
@@ -342,9 +342,9 @@ document.addEventListener('keydown', (event) => {
       calculations.textContent = `${num1}${operator}${num2}=`;
       // perform operations with the result value
     } else if (calculations.textContent.includes(result)) {
-      toNumbers(num);
-      num1 = numbers[0];
-      num2 = numbers[1];
+      num1 = result;
+      // toNumbers(num);
+      num2 = num;
       operator = sign[0];
       operate(num1, operator, num2);
       calculations.textContent = `${num1}${operator}${num2}=`;
@@ -405,7 +405,7 @@ keyEqual.addEventListener('click', () => {
   } else if (numbers[0] == undefined && num1 == undefined) {
     return;
     // for the cases of repeatedly pressed Enter to perform the same action with the result each time
-  } else if (temp == result) {
+  } else if (temp == result && integers.length == 0) {
     num1 = result;
     //saving operator sign 
     operator = sign[0];
@@ -413,9 +413,9 @@ keyEqual.addEventListener('click', () => {
     calculations.textContent = `${num1}${operator}${num2}=`;
     // perform operations with the result value
   } else if (calculations.textContent.includes(result)) {
-    toNumbers(num);
-    num1 = numbers[0];
-    num2 = numbers[1];
+    num1 = result;
+    // toNumbers(num);
+    num2 = num;
     operator = sign[0];
     operate(num1, operator, num2);
     calculations.textContent = `${num1}${operator}${num2}=`;
