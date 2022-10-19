@@ -1,40 +1,39 @@
-Calculator project based of The Odin Project requirements. 
+# Calculator project based of The Odin Project requirements. 
 
-My final result: 
+### My final result: 
 
-    It performs the basic four operations, and behaves as a Windows or Android calculator (mostly).
+* It performs the basic four operations, and behaves as a Windows or Android calculator (mostly).
 
-    It takes the result of a previous operation to act as a first operand in the next operation.
+ * It takes the result of a previous operation to act as a first operand in the next operation.
 
-    It continues calculations when the user presses operator button bypassing equal button.
+* It continues calculations when the user presses operator button bypassing equal button.
 
-    It can repeatedly perform an operation.
+* It can repeatedly perform an operation.
 
-    It reverses negativity / positivity.
+* It reverses negativity / positivity.
 
-    It operates with floating point numbers.
+* It operates with floating point numbers.
 
-    It handles large (or long) numbers as well as a regular windows calculator.
+* It handles large (or long) numbers as well as a regular windows calculator.
 
-    It erases the last entered digit (backspace function).
+* It erases the last entered digit (backspace function).
 
-    It clears the display and all the variable for a new operation.
+* It clears the display and all the variable for a new operation.
 
-    It warns the user about impossibility of dividing by 0, then a new operation can be performed.
+* It warns the user about impossibility of dividing by 0, then a new operation can be performed.
 
-    It has full keyboard support (except positivity/negativity of numbers, which Windows calculator doesn't have either for keyboard).
+* It has full keyboard support (except positivity/negativity of numbers, which Windows calculator doesn't have either for keyboard).
 
-    It displays the result with place value commas.
+* It displays the result with place value commas.
 
-I could not figure one last thing:
+# I could not figure one last thing:
 
-    How to display input with place value commas as in Windows calculator.
-
-
-The Odin Project requirements:
+How to display input with place value commas as in Windows calculator.
 
 
-    Your calculator is going to contain functions for all of the basic math operators you typically find on simple calculators (add, subtract, multiply, divide).
+## The Odin Project requirements:
+
+   Your calculator is going to contain functions for all of the basic math operators you typically find on simple calculators (add, subtract, multiply, divide).
 
     Create a new function operate that takes an operator and 2 numbers and then calls one of the above functions on the numbers.
 
@@ -52,27 +51,26 @@ The Odin Project requirements:
 
     You need to figure out how to store all the values and call the operate function with them. Don’t feel bad if it takes you a while to figure out the logic.
 
-Gotchas: watch out for and fix these bugs if they show up in your code:
+## Gotchas
 
-    Users should be able to string together several operations and get the right answer, with each pair of numbers being evaluated at a time. For example, 12 + 7 - 5 * 3 = should yield 42. An example of the behavior we’re looking for would be this student solution.
+- [x] Users should be able to string together several operations and get the right answer, with each pair of numbers being evaluated at a time. For example, 12 + 7 - 5 * 3 = should yield 42. An example of the behavior we’re looking for would be this student solution.
 
-    Your calculator should not evaluate more than a single pair of numbers at a time. Example: you press a number button (12), followed by an operator button (+), a second number button (7), and finally a second operator button (-). Your calculator should then do the following: first, evaluate the first pair of numbers (12 + 7), second, display the result of that calculation (19), and finally, use that result (19) as the first number in your new calculation, along with the next operator (-).
+- [x] Your calculator should not evaluate more than a single pair of numbers at a time. Example: you press a number button (12), followed by an operator button (+), a second number button (7), and finally a second operator button (-). Your calculator should then do the following: first, evaluate the first pair of numbers (12 + 7), second, display the result of that calculation (19), and finally, use that result (19) as the first number in your new calculation, along with the next operator (-).
 
-    You should round answers with long decimals so that they don’t overflow the screen.
+- [x] You should round answers with long decimals so that they don’t overflow the screen.
 
-    Pressing = before entering all of the numbers or an operator could cause problems!
+- [x] Pressing = before entering all of the numbers or an operator could cause problems!
 
-    Pressing “clear” should wipe out any existing data.. make sure the user is really starting fresh after pressing “clear”.
+- [x] Pressing “clear” should wipe out any existing data.. make sure the user is really starting fresh after pressing “clear”.
 
-    Display a snarky error message if the user tries to divide by 0… and don’t let it crash your calculator!
+- [x] Display a snarky error message if the user tries to divide by 0… and don’t let it crash your calculator!
 
-Extra Credit
+## Extra Credit
 
-    Users can get floating point numbers if they do the math required to get one, but they can’t type them in yet. Add a . button and let users input decimals! Make sure you don’t let them type more than one though: 12.3.56.5. It is hard to do math on these numbers. (disable the decimal button if there’s already one in the display).
+- [x] Users can get floating point numbers if they do the math required to get one, but they can’t type them in yet. Add a . button and let users input decimals! Make sure you don’t let them type more than one though: 12.3.56.5. It is hard to do math on these numbers. (disable the decimal button if there’s already one in the display).
 
-    Make it look nice! This is a great project to practice your CSS skills. At least make the operations a different color from the keypad buttons.
+- [x] Make it look nice! This is a great project to practice your CSS skills. At least make the operations a different color from the keypad buttons.
 
-    Add a “backspace” button, so the user can undo if they click the wrong number.
+- [x] Add a “backspace” button, so the user can undo if they click the wrong number.
 
-    Add keyboard support!
-
+- [x] Add keyboard support!
